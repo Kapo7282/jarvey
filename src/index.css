@@ -1,0 +1,133 @@
+/* Import animate.css first */
+@import 'animate.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: .15s;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Button animation */
+@keyframes buttonGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(139, 92, 246, 0.3),
+                0 0 10px rgba(139, 92, 246, 0.2),
+                0 0 15px rgba(139, 92, 246, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4),
+                0 0 20px rgba(139, 92, 246, 0.3),
+                0 0 30px rgba(139, 92, 246, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(139, 92, 246, 0.3),
+                0 0 10px rgba(139, 92, 246, 0.2),
+                0 0 15px rgba(139, 92, 246, 0.1);
+  }
+}
+
+.animate-button-glow {
+  animation: buttonGlow 2s infinite;
+}
+
+/* Z-index Layering System */
+.modal-backdrop {
+  z-index: 40;
+}
+
+.modal-content {
+  z-index: 50;
+}
+
+/* Ensure dropdowns appear above other content but below modals */
+[data-radix-popper-content-wrapper] {
+  z-index: 30 !important;
+}
+
+/* Mobile Navigation */
+.mobile-nav {
+  z-index: 25;
+}
+
+/* Dialog Overlay */
+[data-radix-portal] {
+  position: relative;
+  z-index: 100;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Custom animation classes */
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.bounce-in {
+  animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  from {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
