@@ -12,21 +12,15 @@ export function Messages() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      title: 'VIP Customer Update',
-      preview: "Hey team, just wanted to let you know...",
       content: "Hey team, just wanted to let you know I'll be handling the VIP customers today.",
       sender: { name: 'Sarah Johnson' },
-      timestamp: new Date(Date.now() - 3600000),
-      time: '1h ago'
+      timestamp: new Date(Date.now() - 3600000)
     },
     {
       id: '2',
-      title: 'Technical Support',
-      preview: "Got it! I'll focus on the technical...",
       content: "Got it! I'll focus on the technical support tickets then.",
       sender: { name: 'Mike Chen' },
-      timestamp: new Date(Date.now() - 1800000),
-      time: '30m ago'
+      timestamp: new Date(Date.now() - 1800000)
     }
   ])
 
@@ -40,12 +34,9 @@ export function Messages() {
   const handleSendMessage = (content: string, attachments: File[]) => {
     const newMessage: Message = {
       id: Math.random().toString(36).substr(2, 9),
-      title: 'New Message',
-      preview: content.substring(0, 50) + '...',
       content,
       sender: { name: 'You' },
-      timestamp: new Date(),
-      time: 'Just now'
+      timestamp: new Date()
     }
     setMessages([...messages, newMessage])
   }

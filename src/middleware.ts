@@ -1,33 +1,21 @@
-import { auth } from '@/auth'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { ROUTES } from '@/lib/constants/routes'
 
-export async function middleware(request: NextRequest) {
-  const session = await auth()
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  
-  // Public routes that don't need authentication
-  const publicRoutes = ['/', '/login', '/signup']
-  const isPublicRoute = publicRoutes.includes(pathname)
+  const isAuthenticated = request.cookies.has('auth_token')
 
-  // Auth routes that should redirect to dashboard if user is authenticated
-  const authRoutes = ['/login', '/signup']
-  const isAuthRoute = authRoutes.includes(pathname)
-
-  // Allow all auth-related API routes
-  if (pathname.startsWith('/api/auth')) {
+  // Public routes that don't require authentication
+  const publicRoutes = [ROUTES.SIGNUP]
+  if (publicRoutes.includes(pathname as any)) {
     return NextResponse.next()
   }
 
-  if (isAuthRoute && session) {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
-  }
-
-  if (!isPublicRoute && !session) {
-    const url = new URL('/login', request.url)
-    url.searchParams.set('callbackUrl', pathname)
-    return NextResponse.redirect(url)
-  }
+  // // Redirect to signup if not authenticated
+  // if (!isAuthenticated) {
+  //   return NextResponse.redirect(new URL(ROUTES.SIGNUP, request.url))
+  // }
 
   return NextResponse.next()
 }
@@ -42,5 +30,5 @@ export const config = {
      * - favicon.ico (favicon file)
      */
     '/((?!api|_next/static|_next/image|favicon.ico).*)',
-  ]
+  ],
 }

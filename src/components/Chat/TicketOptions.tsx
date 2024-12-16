@@ -17,11 +17,6 @@ interface TicketOptionsProps {
 
 const MAX_VISIBLE_TAGS = 3;
 
-interface User {
-  id: string;
-  name: string;
-}
-
 export const TicketOptions: React.FC<TicketOptionsProps> = ({
   onClose,
   onAddTags,
@@ -31,7 +26,7 @@ export const TicketOptions: React.FC<TicketOptionsProps> = ({
   const [showAllTags, setShowAllTags] = useState(false);
   const [contactReason, setContactReason] = useState('');
   const [resolution, setResolution] = useState('');
-  const [assignedUser, setAssignedUser] = useState<User>({ id: '1', name: 'Rankey' });
+  const [assignedUser, setAssignedUser] = useState({ id: '1', name: 'Rankey' });
   const visibleTags = showAllTags ? tags : tags.slice(0, MAX_VISIBLE_TAGS);
   const hiddenTagsCount = tags.length - MAX_VISIBLE_TAGS;
 
@@ -63,7 +58,7 @@ export const TicketOptions: React.FC<TicketOptionsProps> = ({
             Close Ticket
           </Button>
           
-          <TagsDropdown onAddTag={(tag: string) => onAddTags?.(tag)} />
+          <TagsDropdown onAddTag={onAddTags} />
 
           <div className="flex items-center gap-1">
             <TagsList tags={visibleTags} />
@@ -115,7 +110,7 @@ export const TicketOptions: React.FC<TicketOptionsProps> = ({
         <div className="flex items-center gap-2">
           <UserAssignment
             currentUser={assignedUser}
-            onAssign={(user: User | null) => user && setAssignedUser(user)}
+            onAssign={setAssignedUser}
           />
         </div>
       </div>

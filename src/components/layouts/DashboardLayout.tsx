@@ -17,9 +17,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
   // Only show CustomerInfo on chat pages
-  const showCustomerInfo = pathname?.startsWith('/chat/')
+  const showCustomerInfo = pathname.startsWith('/chat/')
   // Only show Sidebar on ticket-related pages
-  const showSidebar = pathname?.startsWith('/tickets/') || pathname?.startsWith('/chat/')
+  const showSidebar = pathname.startsWith('/tickets/') || pathname.startsWith('/chat/')
 
   return (
     <div className="min-h-screen flex">

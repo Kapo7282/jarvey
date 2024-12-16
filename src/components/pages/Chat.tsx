@@ -1,51 +1,40 @@
-import React from 'react';
-import { ChatHeader } from '@/components/Chat/ChatHeader';
-import { ChatMessage } from '@/components/Chat/ChatMessage';
-import { MessageComposer } from '@/components/Chat/MessageComposer';
-import { MessageList } from '@/components/Chat/MessageList';
-import { CustomerInfo } from '@/components/CustomerInfo/CustomerInfo';
-import { useParams } from 'next/navigation';
+'use client'
 
-export const Chat: React.FC = () => {
+import { ChatHeader } from '../Chat/ChatHeader'
+import { ChatMessage } from '../Chat/ChatMessage'
+import { MessageComposer } from '../Chat/MessageComposer'
+import { MessageList } from '../Chat/MessageList'
+import { useParams } from 'next/navigation'
+
+export function Chat() {
   const params = useParams()
-  const id = params?.id as string
+  const id = params.id as string
 
   // Mock data - replace with real API call
   const messages = [
     {
       id: '1',
-      sender: { name: 'Marco D' },
       title: 'Change my shipping address',
       preview: 'Hey support, I was traveling this...',
-      timestamp: new Date(),
+      sender: 'Marco D',
       time: '2h ago',
-      content: 'Hey support, I was traveling this...',
-      isAI: false,
-      attachments: []
+      unread: true
     },
     {
       id: '2',
-      sender: { name: 'Sarah J' },
       title: 'Refund request',
       preview: 'I would like to request a refund...',
-      timestamp: new Date(),
-      time: '3h ago',
-      content: 'I would like to request a refund...',
-      isAI: false,
-      attachments: []
+      sender: 'Sarah J',
+      time: '3h ago'
     },
     {
       id: '3',
-      sender: { name: 'Tom W' },
       title: 'Product question',
       preview: 'Does this come in blue?',
-      timestamp: new Date(),
-      time: '5h ago',
-      content: 'Does this come in blue?',
-      isAI: false,
-      attachments: []
+      sender: 'Tom W',
+      time: '5h ago'
     }
-  ];
+  ]
 
   const chatData = {
     title: "Change my shipping address",
@@ -79,11 +68,11 @@ Before we go ahead and update the address, please confirm that all the details p
 Looking forward to your confirmation.`
       }
     ]
-  };
+  }
 
   const handleSendMessage = (content: string, attachments: File[]) => {
-    console.log('Sending message:', content, attachments);
-  };
+    console.log('Sending message:', content, attachments)
+  }
 
   return (
     <div className="flex h-full bg-gray-50">
@@ -97,6 +86,7 @@ Looking forward to your confirmation.`
         <ChatHeader
           title={chatData.title}
           orderNumber={chatData.orderNumber}
+          tags={chatData.tags}
         />
         
         <div className="flex-1 min-h-0 relative">
@@ -129,11 +119,6 @@ Looking forward to your confirmation.`
           </div>
         </div>
       </div>
-
-      {/* Customer info sidebar - fixed width */}
-      <div className="w-[320px] flex-shrink-0">
-        <CustomerInfo />
-      </div>
     </div>
-  );
-};
+  )
+}

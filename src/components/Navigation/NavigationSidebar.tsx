@@ -11,9 +11,7 @@ import {
   UsersIcon,
   PaperAirplaneIcon,
   Cog6ToothIcon,
-  ArrowLeftOnRectangleIcon,
 } from '@heroicons/react/24/outline'
-import { signOut, useSession } from 'next-auth/react'
 
 const navigationItems = [
   { icon: HomeIcon, label: 'Home', path: '/' },
@@ -28,19 +26,8 @@ const navigationItems = [
 export function NavigationSidebar() {
   const router = useRouter()
   const pathname = usePathname()
-  const { data: session } = useSession()
-  const isActive = (path: string) => pathname === path
 
-  const handleSignOut = async () => {
-    try {
-      await signOut({
-        redirect: true,
-        callbackUrl: '/login',
-      })
-    } catch (error) {
-      console.error('Error signing out:', error)
-    }
-  }
+  const isActive = (path: string) => pathname === path
 
   return (
     <div className="fixed left-0 top-0 h-screen w-16 bg-white border-r flex flex-col items-center py-4 z-50">
@@ -84,19 +71,6 @@ export function NavigationSidebar() {
         <Cog6ToothIcon className="w-5 h-5" />
         <span className="absolute left-16 bg-gray-900 text-white px-2 py-1 rounded text-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap">
           Settings
-        </span>
-      </button>
-
-      <button
-        onClick={handleSignOut}
-        className="p-3 text-gray-400 hover:text-gray-600 transition-colors relative group"
-      >
-        <ArrowLeftOnRectangleIcon className="w-5 h-5" />
-        <span className="absolute left-16 bg-gray-900 text-white px-2 py-1 rounded text-sm opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap">
-          {session?.user?.name} {" "}
-          <span className="text-xs text-gray-500">
-            Sign out
-          </span>
         </span>
       </button>
     </div>

@@ -2,21 +2,27 @@ import React, { useState } from 'react';
 import { ScrollArea } from '../ui/scroll-area';
 import { Button } from '../ui/button';
 import { PlusIcon, PencilIcon } from '@heroicons/react/24/outline';
-import { MacroManager, type Macro as ManagerMacro } from './MacroManager';
-import type { Macro as SharedMacro } from '@/types/macro';
+import { MacroManager } from './MacroManager';
+
+interface Macro {
+  id: string;
+  title: string;
+  content: string;
+  tags: string[];
+  language: string;
+}
 
 interface MacroSelectorProps {
-  onSelect: (macro: SharedMacro) => void;
+  onSelect: (macro: Macro) => void;
 }
 
 export const MacroSelector: React.FC<MacroSelectorProps> = ({ onSelect }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedMacro, setSelectedMacro] = useState<SharedMacro | null>(null);
+  const [selectedMacro, setSelectedMacro] = useState<Macro | null>(null);
   const [isManagerOpen, setIsManagerOpen] = useState(false);
-  const [macros, setMacros] = useState<SharedMacro[]>([
+  const [macros, setMacros] = useState<Macro[]>([
     {
       id: '1',
-      name: 'Greeting',
       title: 'Greeting',
       content: 'Hello,\n\nThank you for reaching out. How can I help you today?',
       tags: ['greeting', 'welcome'],
@@ -24,7 +30,6 @@ export const MacroSelector: React.FC<MacroSelectorProps> = ({ onSelect }) => {
     },
     {
       id: '2',
-      name: 'Order Status',
       title: 'Order Status',
       content: 'I can help you check the status of your order. Could you please provide your order number?',
       tags: ['order', 'status'],
@@ -37,12 +42,11 @@ export const MacroSelector: React.FC<MacroSelectorProps> = ({ onSelect }) => {
     macro.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  const handleSaveMacro = (macro: ManagerMacro) => {
-    const macroWithTitle = { ...macro, title: macro.name };
+  const handleSaveMacro = (macro: Macro) => {
     if (selectedMacro) {
-      setMacros(macros.map(m => m.id === macro.id ? macroWithTitle : m));
+      setMacros(macros.map(m => m.id === macro.id ? macro : m));
     } else {
-      setMacros([...macros, macroWithTitle]);
+      setMacros([...macros, macro]);
     }
     setSelectedMacro(null);
     setIsManagerOpen(false);
@@ -136,7 +140,7 @@ export const MacroSelector: React.FC<MacroSelectorProps> = ({ onSelect }) => {
           setSelectedMacro(null);
         }}
         initialMacro={selectedMacro || undefined}
-        onSave={handleSaveMacro as (macro: ManagerMacro) => void}
+        onSave={handleSaveMacro}
         onDelete={handleDeleteMacro}
         onDuplicate={handleDuplicateMacro}
       />

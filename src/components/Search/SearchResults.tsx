@@ -1,5 +1,5 @@
 import React from 'react';
-import { TicketIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, TicketIcon, UserIcon } from '@heroicons/react/24/outline';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 
 interface SearchResultsProps {
@@ -59,7 +59,7 @@ export const SearchResults: React.FC<SearchResultsProps> = ({ query, type }) => 
             <>
               <Avatar>
                 <AvatarFallback>
-                  {result.name?.split(' ').map(n => n[0]).join('')}
+                  {result.name.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 text-left">

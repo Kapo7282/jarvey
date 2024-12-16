@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Button } from '../ui/button';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ScrollArea } from '../ui/scroll-area';
+import { Separator } from '../ui/separator';
 import { Label } from '../ui/label';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -17,7 +19,7 @@ interface MacroManagerProps {
   onDuplicate?: (id: string) => void;
 }
 
-export interface Macro {
+interface Macro {
   id: string;
   name: string;
   content: string;

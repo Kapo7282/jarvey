@@ -157,7 +157,7 @@ export function SignupModal({
             </div>
 
             <Button
-              variant="default"
+              variant="outline"
               className="w-full"
               onClick={handleGoogleSignup}
             >

@@ -203,7 +203,7 @@ export const TicketFilters: React.FC = () => {
 
           <div className="relative">
             <Button
-              variant="default"
+              variant="outline"
               size="sm"
               className="w-full justify-start"
               onClick={() => setSelectedField('')}
