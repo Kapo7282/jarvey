@@ -16,10 +16,10 @@ export default function Layout({
     return <div>Loading...</div>
   }
 
-  if (!session?.user) {
-    router.replace('/login')
-    return <div>Redirecting...</div>
-  }
+  // if (!session?.user) {
+  //   router.replace('/login')
+  //   return <div>Redirecting...</div>
+  // }
 
   return (
     <DashboardLayout>{children}</DashboardLayout>
